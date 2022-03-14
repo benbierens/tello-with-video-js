@@ -132,4 +132,24 @@ setTimeout(function() {
   streamer.on("exit", function(code){
       console.log("Failure", code);
   });
+
+  setTimeout(function () {
+
+    console.log("takeoff");
+    udpClient.send("takeoff", TELLO_PORT, TELLO_IP, null);
+
+    setTimeout(function () {
+
+      console.log("cw");
+      udpClient.send("cw 90", TELLO_PORT, TELLO_IP, null);
+
+      setTimeout(function () {
+
+        console.log("land");
+        udpClient.send("land", TELLO_PORT, TELLO_IP, null);
+      }, 10000);
+    }, 10000);
+  }, 10000);
+
+
 }, 3000);

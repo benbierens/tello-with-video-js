@@ -104,36 +104,83 @@ function startStreamServer() {
   };
 }
 
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 startHttpServer();
 // startStreamServer();
 
+let okReceived = false;
+
 const udpClient = dgram.createSocket('udp4');
+udpClient.on("message", (msg, rinfo) => {
+  console.log("Message: " + msg);
 
-// Send command
-udpClient.send("command", TELLO_PORT, TELLO_IP, null);
+  if (msg == "ok") {
+    okReceived = true;
+    console.log("ok received!");
+  }
+});
 
-// Send streamon
-udpClient.send("streamon", TELLO_PORT, TELLO_IP, null);
+udpClient.on("error", msg => {
+  console.log("Error: " + msg);
+});
 
-setTimeout(function() {
+udpClient.on("connect", () =>{
+  console.log("Connect!");
+});
+
+udpClient.on("close", () => {
+  console.log("close!");
+});
+
+udpClient.on("listening", () =>{
+  console.log("listening...");
+});
+
+async function send(msg) {
+  okReceived = false;
+  console.log(msg);
+  udpClient.send(msg, TELLO_PORT, TELLO_IP, null);
+
+  await sleep(1000);
+}
+
+async function waitForOK() {
+  while (!okReceived) {
+    await sleep(100);
+  }
+}
+
+async function main() {
+  await sleep(3000);
+  
+  await send("command");
+  await waitForOK();
+
+  await send("streamon");
+  await sleep(3000);
+
+  await send("battery?");
+  await sleep(3000);
+
   // startStreaming();
   startRecording();
 
-  setTimeout(function () {
+  await send("takeoff");
+  await waitForOK();
 
-    console.log("takeoff");
-    udpClient.send("takeoff", TELLO_PORT, TELLO_IP, null);
+  await send("up 90");
+  await waitForOK();
 
-    setTimeout(function () {
+  await send("ccw 90");
+  await waitForOK();
 
-      console.log("cw");
-      udpClient.send("cw 90", TELLO_PORT, TELLO_IP, null);
+  await send("forward 100");
+  await waitForOK();
 
-      setTimeout(function () {
+  await send("land");
+}
 
-        console.log("land");
-        udpClient.send("land", TELLO_PORT, TELLO_IP, null);
-      }, 10000);
-    }, 10000);
-  }, 10000);
-}, 3000);
+main();

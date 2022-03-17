@@ -109,7 +109,7 @@ async function sleep(ms) {
 }
 
 startHttpServer();
-// startStreamServer();
+startStreamServer();
 
 let okReceived = false;
 
@@ -157,7 +157,7 @@ async function main() {
   await sleep(3000);
   
   await send("command");
-  await waitForOK();
+  await sleep(3000);
 
   await send("streamon");
   await sleep(3000);
@@ -165,20 +165,28 @@ async function main() {
   await send("battery?");
   await sleep(3000);
 
-  // startStreaming();
-  startRecording();
+
+  /*
+    ----------START----------
+    Write all of your commands in this block
+  */
+
+  // Use startStreaming() for streaming to localhost:3000
+  startStreaming();
+  // Use startRecording() to record your final submission
+  // startRecording();
 
   await send("takeoff");
   await waitForOK();
 
-  await send("up 90");
-  await waitForOK();
-
-  await send("ccw 90");
-  await waitForOK();
-
+  // Example Forward Command
   await send("forward 100");
   await waitForOK();
+
+  /*
+    ----------END----------
+    Command block
+  */
 
   await send("land");
 }

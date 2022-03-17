@@ -1,19 +1,21 @@
 ## The challenge
+- There are 2 missions.
+- There are 4 targets per mission.
 
 ### Preparation
-- Create teams of min. 2 participants.
-- Get a drone
-- Modify the code / enable and view the video stream / get a feel for controlling your drone
-- Inspect / measure the obstacle course
-- Program your drone to complete the course and capture video of each target image
+- Create 2 teams, one per mission.
+- Get 1 drone + laptop per team.
+- Modify the code / enable and view the video stream / get a feel for controlling your drone.
+- Inspect / measure the obstacle course.
+- Program your drone to complete the course and capture video of each target image.
 
 ### Fly the mission
-- When you are ready, you can start the mission
-- You can start the mission only once per team
-- Create a recording of your drone flying the obstacle course following your program
-- Your team will earn points for each target image in your video recording
-- Better (centered, close-up) footage of the target images will get you more points
-- The scores of all the teams combined will result in the score for your group
+- When you are ready, you can start the mission.
+- You can start the mission only once per team.
+- Create a recording of your drone flying the obstacle course following your program.
+- Your team will earn up to 12.5 points for each target image in your video recording.
+- Better (centered, close-up) footage of the target images will get you more points.
+- The scores of both missions is combined in the score for your group.
 
 
 ## Warning: waitForOK
@@ -22,6 +24,7 @@ After you send a command, the drone should respond with an OK message. You can w
 
 ---
 ## Requirements
+(Already installed!)
 
 Node:
 https://nodejs.org/en/download/

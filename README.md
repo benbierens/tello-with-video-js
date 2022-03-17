@@ -1,52 +1,56 @@
-# Tello Video Stream with Node.js and WebSockets
+## The challenge
 
-I've been looking for a way to retrieve Tello's video stream from the SDK command streamon. I also wanted to do this with the bare minimum libraries/modules and keep it as simple as possible. This has been tested on Mac and Windows.
+### Preparation
+- Create teams of min. 2 participants.
+- Get a drone
+- Modify the code / enable and view the video stream / get a feel for controlling your drone
+- Inspect / measure the obstacle course
+- Program your drone to complete the course and capture video of each target image
 
-If you'd also like to learn how to do this in Node-RED then check out this YouTube video:
+### Fly the mission
+- When you are ready, you can start the mission
+- You can start the mission only once per team
+- Create a recording of your drone flying the obstacle course following your program
+- Your team will earn points for each target image in your video recording
+- Better (centered, close-up) footage of the target images will get you more points
+- The scores of all the teams combined will result in the score for your group
 
+
+## Warning: waitForOK
+After you send a command, the drone should respond with an OK message. You can wait until the OK is received with the waitForOK function. However, sometimes, some drones don't feel like sending the OK. So you may want to sometimes replace a waitForOK with a sleep. Try and find out.
 
 
 ---
 ## Requirements
 
-You'll need Node.js and npm installed. You can download and install the binaries from here:
-
+Node:
 https://nodejs.org/en/download/
 
-You will also need FFmpeg installed. Here is a great resource for installing on Mac:
-
+ffmpeg: (Make sure it's in your path)
 http://jollejolles.com/install-ffmpeg-on-mac-os-x/
 
 and for Windows:
-
 https://github.com/adaptlearning/adapt_authoring/wiki/Installing-FFmpeg
-
----
-
-## Code
-
-You'll need to clone this repository and install the necessary modules:
-
-    $ git clone https://github.com/dbaldwin/tello-video-nodejs-websockets
-    $ cd tello-video-nodejs-websockets
-    $ npm install
 
 ---
 
 ## Running
 
-Make sure you power up Tello and connect to its network first. The reason is that our script sends "command" and "streamon" SDK commands to start the stream. This will not work if Tello isn't connected. After connecting to Tello run the following command from witin the tello-video-nodejs-websockets directory:
-
-    $ node index.js
+node index.js
 
 ## Accessing the Video Stream
 
-Once the code is running you can access the following url in your browser and hopefully see Tello's video stream:
+Uncomment "startStreamServer();" (line 112)
+Uncomment "startStreaming();" (line 168)
+Comment "startRecording();" (line 169)
 
-    $ http://localhost:3000/index.html
+When your code is running, open a browser to:
+http://localhost:3000/index.html
 
-## Thank You
+## Creating a recording
 
-A special thanks to the JSMpeg developer for figuring out how to decode the video steam. More info on the project here:
+Set target filename. Default is "recording.avi" (line 34)
+Comment "startStreamServer();" (line 112)
+Comment "startStreaming();" (line 168)
+Uncomment "startRecording();" (line 169)
 
-https://github.com/phoboslab/jsmpeg
